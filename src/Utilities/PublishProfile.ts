@@ -15,6 +15,7 @@ export class PublishProfile {
     private _creds: ScmCredentials;
     private _appUrl: string;
     private _kuduService: any;
+    private _appOS: any;
     private static _publishProfile: PublishProfile;
 
     private constructor(publishProfileContent: string) {
@@ -58,12 +59,14 @@ export class PublishProfile {
 
     public async getAppOS() {
         try {
-            const appRuntimeDetails = await this._kuduService.getAppRuntime();
-            return appRuntimeDetails[RuntimeConstants.system][RuntimeConstants.osName];
-        }
-        catch(error) {
+            if(!this._appOS) {
+                const appRuntimeDetails = await this._kuduService.getAppRuntime();
+                this._appOS = appRuntimeDetails[RuntimeConstants.system][RuntimeConstants.osName];
+            }
+        } catch(error) {
             throw Error("Internal Server Error. Please try again\n" + error);
         }
+        return this._appOS;
     }
 
 }
