@@ -69,7 +69,7 @@ export abstract class BaseWebAppDeploymentProvider implements IWebAppDeploymentP
 
     private async initializeForPublishProfile() {
         const publishProfile: PublishProfile = PublishProfile.getPublishProfile(this.actionParams.publishProfileContent);
-        
+        console.log(`ak - in initializeForPublishProfile - actionParams: ${this.actionParams}`);
         this.kuduService = publishProfile.kuduService;
         this.kuduServiceUtility = new KuduServiceUtility(this.kuduService);
         

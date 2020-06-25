@@ -59,7 +59,7 @@ export class ValidatorFactory {
     }
 
     private static async setResourceDetails(actionParams: ActionParameters) {
-        console.log(`ak-setResourceDetails - publishProfileContent: ${actionParams.publishProfileContent} `);
+        console.log(`ak-setResourceDetails - actionParams: ${actionParams} `);
         const publishProfile: PublishProfile = PublishProfile.getPublishProfile(actionParams.publishProfileContent);
         const appOS: string = await publishProfile.getAppOS();
         actionParams.isLinux = appOS.includes(RuntimeConstants.Unix) || appOS.includes(RuntimeConstants.Unix.toLowerCase());
