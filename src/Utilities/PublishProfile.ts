@@ -14,7 +14,6 @@ export interface ScmCredentials {
 export class PublishProfile {
     private _creds: ScmCredentials;
     private _appUrl: string;
-    private _appOS: string;
     private _kuduService: any;
     private static _publishProfile: PublishProfile;
 
@@ -32,7 +31,6 @@ export class PublishProfile {
             }
             this._creds.uri = `https://${this._creds.uri}`;
             this._kuduService = new Kudu(this._creds.uri, this._creds.username, this._creds.password);
-            this.setAppOS();
         } catch(error) {
             core.error("Failed to fetch credentials from Publish Profile. For more details on how to set publish profile credentials refer https://aka.ms/create-secrets-for-GitHub-workflows");
             throw error;
@@ -58,14 +56,10 @@ export class PublishProfile {
         return this._kuduService;
     }
 
-    public get appOS() {
-        return this._appOS;
-    }
-
-    private async setAppOS() {
+    public async getAppOS() {
         try {
             const appRuntimeDetails = await this._kuduService.getAppRuntime();
-            this._appOS = appRuntimeDetails[RuntimeConstants.system][RuntimeConstants.osName];
+            return appRuntimeDetails[RuntimeConstants.system][RuntimeConstants.osName];
         }
         catch(error) {
             throw Error("Internal Server Error. Please try again\n" + error);
