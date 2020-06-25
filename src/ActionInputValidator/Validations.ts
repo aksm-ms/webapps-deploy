@@ -28,7 +28,6 @@ export function validateAppDetails() {
 
     if(!!actionParams.appName || (!!actionParams.slotName && actionParams.slotName !== 'production')) {
         let creds: ScmCredentials = PublishProfile.getPublishProfile(actionParams.publishProfileContent).creds;
-        console.log(`ak - in validateAppDetails - actionParams: ${actionParams}`);
         let splitUsername: string[] = creds.username.toUpperCase().substring(1).split("__");
         let appNameMatch: boolean = !actionParams.appName || actionParams.appName.toUpperCase() === splitUsername[0];
         let slotNameMatch: boolean = actionParams.slotName === 'production' || actionParams.slotName.toUpperCase() === splitUsername[1];

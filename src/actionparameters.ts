@@ -36,7 +36,6 @@ export class ActionParameters {
 
     private constructor(endpoint: IAuthorizer) {
         this._publishProfileContent = core.getInput('publish-profile');
-        console.log(`ak-getinput - _publishProfileContent: ${this._publishProfileContent} `);
         this._appName = core.getInput('app-name');
         this._slotName = core.getInput('slot-name');
         this._packageInput = core.getInput('package');
