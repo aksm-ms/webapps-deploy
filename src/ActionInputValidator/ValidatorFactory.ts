@@ -16,8 +16,11 @@ import RuntimeConstants from "../RuntimeConstants";
 export class ValidatorFactory {
     public static async getValidator(type: DEPLOYMENT_PROVIDER_TYPES) : Promise<IValidator> {
         let actionParams: ActionParameters = ActionParameters.getActionParams();
+        console.log(`ak - getValidator: actionParams: ${actionParams}`);
         if(type === DEPLOYMENT_PROVIDER_TYPES.PUBLISHPROFILE) {
+            console.log(`ak - in if: before - actionParams: ${actionParams}`);
             await this.setResourceDetails(actionParams);
+            console.log(`ak - in if: after- actionParams: ${actionParams}`);
             if (!!actionParams.images) {
                 return new PublishProfileContainerWebAppValidator();
             }
@@ -56,6 +59,7 @@ export class ValidatorFactory {
     }
 
     private static async setResourceDetails(actionParams: ActionParameters) {
+        console.log(`ak-setResourceDetails - publishProfileContent: ${actionParams.publishProfileContent} `);
         const publishProfile: PublishProfile = PublishProfile.getPublishProfile(actionParams.publishProfileContent);
         const appOS: string = await publishProfile.getAppOS();
         actionParams.isLinux = appOS.includes(RuntimeConstants.Unix) || appOS.includes(RuntimeConstants.Unix.toLowerCase());

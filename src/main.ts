@@ -23,7 +23,9 @@ export async function main() {
 
     // Initialize action inputs
     let endpoint: IAuthorizer = !!core.getInput('publish-profile') ? null : await AuthorizerFactory.getAuthorizer();
-    ActionParameters.getActionParams(endpoint);
+    let actionparam: ActionParameters = ActionParameters.getActionParams(endpoint);
+    console.log(`ak- actionParam toString: ${actionparam.toString()}`);
+
     let type: DEPLOYMENT_PROVIDER_TYPES = null;
 
     if(!!endpoint) {

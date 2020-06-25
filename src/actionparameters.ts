@@ -36,6 +36,7 @@ export class ActionParameters {
 
     private constructor(endpoint: IAuthorizer) {
         this._publishProfileContent = core.getInput('publish-profile');
+        console.log(`ak-getinput - _publishProfileContent: ${this._publishProfileContent} `);
         this._appName = core.getInput('app-name');
         this._slotName = core.getInput('slot-name');
         this._packageInput = core.getInput('package');
@@ -130,5 +131,15 @@ export class ActionParameters {
 
     public get multiContainerConfigFile() {
         return this._multiContainerConfigFile;
+    }
+
+    public toString() {
+        return `_publishProfileContent: ${this._publishProfileContent}
+                _appName: ${this._appName}
+                _slotName: ${this._slotName}
+                _packageInput: ${this._packageInput}
+                _images:${this._images}
+                _multiContainerConfigFile: ${this._multiContainerConfigFile}
+                _startupCommand: ${this._startupCommand}`;
     }
 }
