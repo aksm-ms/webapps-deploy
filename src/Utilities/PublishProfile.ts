@@ -62,6 +62,7 @@ export class PublishProfile {
             if(!this._appOS) {
                 const appRuntimeDetails = await this._kuduService.getAppRuntime();
                 this._appOS = appRuntimeDetails[RuntimeConstants.system][RuntimeConstants.osName];
+                core.debug(`App Runtime OS: ${this._appOS}`);
             }
         } catch(error) {
             throw Error("Internal Server Error. Please try again\n" + error);
